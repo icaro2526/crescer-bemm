@@ -34,6 +34,18 @@ export default function DevelopmentPage() {
     () => buildPersonalizedStimulus(profile),
     [profile]
   );
+  const attentionItems = useMemo(() => {
+    if (!currentStage) {
+      return [];
+    }
+    return currentStage.attentionSigns.slice(0, 3);
+  }, [currentStage]);
+  const stimulationItems = useMemo(() => {
+    if (!currentStage) {
+      return [];
+    }
+    return [...currentStage.stimulation, ...personalizedStimulus];
+  }, [currentStage, personalizedStimulus]);
 
   if (!isReady) {
     return <p className="text-sm text-zinc-500">Carregando perfil...</p>;
@@ -156,15 +168,27 @@ export default function DevelopmentPage() {
           </div>
 
           <SectionCard
-            title="Sinais de atencao"
-            description="Se notar sinais persistentes ou perda de habilidades, vale conversar com um profissional de saude."
-            items={currentStage.attentionSigns}
+            title="Atencoes para esta fase"
+            description="Pontos leves para observar com calma. Variacoes sao comuns e cada crianca tem seu ritmo."
+            items={
+              attentionItems.length > 0
+                ? attentionItems
+                : [
+                    "Sem dados suficientes para destacar alertas leves agora. Continue acompanhando com tranquilidade.",
+                  ]
+            }
           />
 
           <SectionCard
-            title="Como estimular em casa"
-            description="Sugestoes simples para o dia a dia, sem prescrever tratamentos."
-            items={[...currentStage.stimulation, ...personalizedStimulus]}
+            title="Como estimular no dia a dia"
+            description="Sugestoes simples e praticas, sem prescricao medica."
+            items={
+              stimulationItems.length > 0
+                ? stimulationItems
+                : [
+                    "Sem sugestoes personalizadas disponiveis agora. Atividades simples e afetuosas ja fazem diferenca.",
+                  ]
+            }
           />
         </div>
       )}
