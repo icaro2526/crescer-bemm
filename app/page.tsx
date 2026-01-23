@@ -1,6 +1,12 @@
+"use client";
+
+import ChildSummaryCard from "@/components/ChildSummaryCard";
 import PlaceholderCard from "@/components/PlaceholderCard";
+import { useChildProfile } from "@/features/child-profile/context";
 
 export default function Home() {
+  const { profile } = useChildProfile();
+
   return (
     <section className="space-y-4">
       <div className="space-y-1">
@@ -14,10 +20,7 @@ export default function Home() {
           title="Overview placeholder"
           description="Placeholder content for the home overview."
         />
-        <PlaceholderCard
-          title="Child summary placeholder"
-          description="Placeholder content for the child summary."
-        />
+        <ChildSummaryCard profile={profile} />
       </div>
     </section>
   );
