@@ -1,19 +1,26 @@
 # Crescer Bem
 
-Aplicativo web e mobile para apoio educativo ao desenvolvimento infantil de 0 a 5 anos.
+Web app focused on child development guidance and parental support.
 
-## Objetivo
-Ajudar pais e responsáveis a acompanhar o desenvolvimento da criança por idade,
-com checklists, questionários e orientações educativas.
+## Scope
+- Age coverage: pregnancy, 0-12 months, 1-3 years, 3-5 years.
+- Educational guidance only. Not diagnostic or a medical substitute.
 
-## Aviso Legal
-Este aplicativo fornece informações educativas.
-Não substitui avaliação médica ou profissional.
-Não diagnostica doenças nem prescreve tratamentos.
+## Architecture intent
+- Age-driven and stage-driven structure.
+- Content filtered by child age or developmental phase.
+- Personalized flow based on the child profile.
 
-## Tecnologias (planejado)
-- Frontend: Next.js / React
-- Backend: API + Banco de dados
-- Autenticação
-- Dashboard por criança
-- Sessões por área de desenvolvimento
+## Planned domains (architecture only)
+- Development milestones
+- Symptoms guidance (educational only)
+- Autism suspicion guidance (non-diagnostic)
+- Sleep, nutrition, behavior, screen time
+- Child profiles and personalization
+
+## Tech stack
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- Component-based architecture
+- Prepared for future database and authentication integration (not implemented)
