@@ -25,7 +25,10 @@ export default function BottomNav() {
     >
       <div className="mx-auto flex w-full max-w-5xl gap-2 overflow-x-auto px-4 py-2 text-xs">
         {navItems.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive =
+            item.href === "/"
+              ? pathname === "/"
+              : pathname === item.href || pathname.startsWith(`${item.href}/`);
 
           return (
             <Link
