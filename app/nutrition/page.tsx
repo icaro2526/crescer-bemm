@@ -113,6 +113,7 @@ function isFutureDate(value: string) {
 
 export default function NutritionPage() {
   const { profile } = useChildProfile();
+  const hasProfile = Boolean(profile);
   const ageInMonths = profile?.ageInMonths ?? null;
   const prenatal = isFutureDate(profile?.birthDate ?? "");
   const ageGroup = prenatal ? "unknown" : getAgeGroup(ageInMonths);
@@ -123,11 +124,19 @@ export default function NutritionPage() {
     ? content.header
     : prenatal
       ? "Conteudo de nutricao fica disponivel apos o nascimento."
-      : "Sem dados suficientes para personalizar esta fase no momento.";
+      : hasProfile
+        ? "Ainda nao foi possivel personalizar esta fase. Use orientacoes gerais por enquanto."
+        : "Se quiser, complete o perfil para ver orientacoes ajustadas a fase.";
 
   const expectedItems = content ? content.expected.slice(0, 5) : [];
   const alertItems = content ? content.alerts.slice(0, 3) : [];
   const tipItems = content ? content.tips : [];
+  const expectedFallback =
+    "Cada crianca tem seu ritmo. Pequenas observacoes no dia a dia ja ajudam bastante.";
+  const alertFallback =
+    "Se nao houver sinais para destacar agora, siga observando com calma.";
+  const tipsFallback =
+    "Sem sugestoes personalizadas agora. Um ambiente tranquilo a mesa ja ajuda bastante.";
 
   return (
     <section className="space-y-6">
@@ -145,8 +154,7 @@ export default function NutritionPage() {
           </ul>
         ) : (
           <p className="mt-3 text-sm text-zinc-500">
-            Sem dados suficientes para listar expectativas agora. Cada crianca
-            tem seu ritmo.
+            {expectedFallback}
           </p>
         )}
       </PlaceholderCard>
@@ -163,7 +171,7 @@ export default function NutritionPage() {
           </ul>
         ) : (
           <p className="mt-3 text-sm text-zinc-500">
-            Sem alertas leves disponiveis agora. Acompanhe com tranquilidade.
+            {alertFallback}
           </p>
         )}
       </PlaceholderCard>
@@ -180,10 +188,21 @@ export default function NutritionPage() {
           </ul>
         ) : (
           <p className="mt-3 text-sm text-zinc-500">
-            Sem sugestoes personalizadas agora. Momentos calmos a mesa ja ajudam
-            bastante.
+            {tipsFallback}
           </p>
         )}
+      </PlaceholderCard>
+
+      <PlaceholderCard
+        title="O que fazer agora?"
+        description="Passos simples para apoiar a alimentacao com tranquilidade."
+      >
+        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
+          <li>Mantenha horarios parecidos para as refeicoes.</li>
+          <li>Ofereca agua em pequenos momentos ao longo do dia.</li>
+          <li>Evite pressa e distrações fortes durante a refeicao.</li>
+          <li>Observe sinais de fome e saciedade com paciencia.</li>
+        </ul>
       </PlaceholderCard>
     </section>
   );
