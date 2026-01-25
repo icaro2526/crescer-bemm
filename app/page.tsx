@@ -78,12 +78,12 @@ export default function Home() {
   const shortcuts = useMemo(() => {
     const base = [
       {
-        label: "Desenvolvimento: marcos e estimulos",
+        label: "Desenvolvimento: ver marcos da fase",
         href: "/development",
       },
-      { label: "Sono: rotina e descanso", href: "/sleep" },
-      { label: "Nutricao: alimentacao diaria", href: "/nutrition" },
-      { label: "Sintomas: observacao em casa", href: "/symptoms" },
+      { label: "Sono: ajustar rotina de descanso", href: "/sleep" },
+      { label: "Nutricao: ideias para refeicoes", href: "/nutrition" },
+      { label: "Sintomas: observar sinais do dia", href: "/symptoms" },
     ];
 
     if (!ageInMonths || isPrenatal) {
@@ -169,7 +169,7 @@ export default function Home() {
 
       <PlaceholderCard
         title="Proximos passos sugeridos"
-        description="Clique em um atalho para ver orientacoes praticas."
+        description="Escolha um atalho para entender quando e por que acessar cada secao."
       >
         <div className="mt-3 flex flex-wrap gap-2">
           {shortcuts.map((shortcut) => (
