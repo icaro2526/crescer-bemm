@@ -8,6 +8,26 @@ import { useChildProfile } from "@/features/child-profile/context";
 import { calculateAgeSummary } from "@/features/child-profile/utils";
 import { getAgeInMonths, getCurrentStage } from "@/app/development/utils";
 
+function formatAgeLabel(ageInMonths: number | null) {
+  if (ageInMonths === null) {
+    return "Idade a confirmar";
+  }
+
+  const years = Math.floor(ageInMonths / 12);
+  const months = ageInMonths % 12;
+  const parts: string[] = [];
+
+  if (years > 0) {
+    parts.push(`${years} ano${years === 1 ? "" : "s"}`);
+  }
+
+  if (months > 0 || years === 0) {
+    parts.push(`${months} mes${months === 1 ? "" : "es"}`);
+  }
+
+  return parts.join(" e ");
+}
+
 export default function Home() {
   const { profile } = useChildProfile();
   const ageSummary = useMemo(
@@ -20,6 +40,12 @@ export default function Home() {
     [ageInMonths]
   );
   const isPrenatal = ageSummary?.isPrenatal ?? false;
+  const hasProfile = Boolean(profile);
+  const ageLabel = hasProfile
+    ? isPrenatal
+      ? "Em gestacao"
+      : formatAgeLabel(ageInMonths)
+    : "A confirmar";
 
   // Highlight 3-5 milestones by selecting a balanced mix across categories.
   const milestoneHighlights = useMemo(() => {
@@ -51,10 +77,13 @@ export default function Home() {
 
   const shortcuts = useMemo(() => {
     const base = [
-      { label: "Desenvolvimento", href: "/development" },
-      { label: "Sono", href: "/sleep" },
-      { label: "Nutricao", href: "/nutrition" },
-      { label: "Sintomas", href: "/symptoms" },
+      {
+        label: "Desenvolvimento: marcos e estimulos",
+        href: "/development",
+      },
+      { label: "Sono: rotina e descanso", href: "/sleep" },
+      { label: "Nutricao: alimentacao diaria", href: "/nutrition" },
+      { label: "Sintomas: observacao em casa", href: "/symptoms" },
     ];
 
     if (!ageInMonths || isPrenatal) {
@@ -73,23 +102,34 @@ export default function Home() {
     return [base[0], base[2], base[1], base[3]];
   }, [ageInMonths, isPrenatal]);
 
-  const stageLabel = currentStage?.label ?? "Faixa nao identificada";
-  const ageLabel = profile?.ageLabel ?? "Idade nao informada";
+  const stageLabel = currentStage?.label ?? (isPrenatal ? "Em gestacao" : "Fase a confirmar");
+  const phaseSummary = hasProfile
+    ? `Fase atual: ${stageLabel}. Idade aproximada: ${ageLabel}.`
+    : "Preencha o perfil quando puder para ver a fase atual.";
+  const milestonesFallback = isPrenatal
+    ? "Se a crianca ainda nao nasceu, voce pode voltar depois para ver os marcos da fase."
+    : hasProfile
+      ? "Cada crianca tem seu ritmo. Quando for possivel, voce vera um resumo da fase aqui."
+      : "Sem pressa: ao completar o perfil, voce vera um resumo da fase aqui.";
+  const attentionFallback = hasProfile
+    ? "Se nao houver sinais para destacar agora, siga observando com calma."
+    : "Quando o perfil estiver completo, voce vera sinais leves para observar.";
 
   return (
     <section className="space-y-6">
       <div className="space-y-1">
-        <h1 className="text-2xl font-semibold">Painel diario</h1>
+        <h1 className="text-2xl font-semibold">Resumo do dia</h1>
         <p className="text-sm text-zinc-500">
-          Um resumo rapido para acompanhar o desenvolvimento e ajustar rotinas.
+          Um panorama simples para entender a fase da crianca e o que observar
+          no dia a dia.
         </p>
       </div>
 
       <ChildSummaryCard profile={profile} />
 
       <PlaceholderCard
-        title="Resumo do Desenvolvimento Atual"
-        description={`Faixa atual: ${stageLabel}. Idade: ${ageLabel}.`}
+        title="Resumo da fase da crianca"
+        description={phaseSummary}
       >
         {milestoneHighlights.length > 0 ? (
           <ul className="mt-3 space-y-2 text-sm text-zinc-600">
@@ -102,15 +142,14 @@ export default function Home() {
           </ul>
         ) : (
           <p className="mt-3 text-sm text-zinc-500">
-            Sem dados suficientes para destacar marcos nesta fase. Atualize o
-            perfil ou aguarde a data de nascimento.
+            {milestonesFallback}
           </p>
         )}
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="Atencoes para observar"
-        description="Sinais leves para acompanhar com calma e atencao."
+        title="Sinais de atencao (ate 3)"
+        description="Sinais leves para observar com calma e sem pressa."
       >
         {attentionHighlights.length > 0 ? (
           <ul className="mt-3 space-y-2 text-sm text-zinc-600">
@@ -123,14 +162,14 @@ export default function Home() {
           </ul>
         ) : (
           <p className="mt-3 text-sm text-zinc-500">
-            Sem alertas leves disponiveis agora. Cada crianca tem seu ritmo.
+            {attentionFallback}
           </p>
         )}
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="Atalhos Personalizados"
-        description="Sugestoes ajustadas pela fase atual."
+        title="Proximos passos sugeridos"
+        description="Clique em um atalho para ver orientacoes praticas."
       >
         <div className="mt-3 flex flex-wrap gap-2">
           {shortcuts.map((shortcut) => (
@@ -145,8 +184,8 @@ export default function Home() {
         </div>
         {profile && !isPrenatal && !currentStage && (
           <p className="mt-3 text-xs text-zinc-500">
-            Faixa etaria indefinida. Revise a data de nascimento para personalizar
-            estes atalhos.
+            Se a faixa etaria ainda nao estiver clara, voce pode revisar a data
+            de nascimento quando quiser.
           </p>
         )}
       </PlaceholderCard>
