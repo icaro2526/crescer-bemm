@@ -101,15 +101,15 @@ export default function SymptomsPage() {
   const groupLabel = ageGroupLabels[ageGroup];
   const attentionItems = content ? content.attention.slice(0, 3) : [];
   const noDataMessage =
-    "Cada crianca se desenvolve no seu proprio ritmo. Observe mudancas persistentes.";
+    "Cada crianca tem seu ritmo. Observe com calma mudancas que se repetem e anote o que voce percebe.";
   const introText =
     "Sinais sao observacoes do dia a dia. Eles ajudam a entender como a crianca esta, sem conclusoes ou rotulos.";
   const phaseSummary = !hasProfile
-    ? "Quando quiser, complete o perfil para ver a fase atual da crianca."
+    ? "Sem perfil por enquanto. Se quiser, complete o perfil para personalizar esta pagina."
     : isPrenatal
       ? "Perfil em gestacao. Este conteudo fica disponivel apos o nascimento."
       : ageGroup === "unknown"
-        ? "Fase a confirmar. Voce pode revisar a data de nascimento quando desejar."
+        ? "Fase a confirmar. Se preferir, revise a data de nascimento quando puder."
         : `Fase atual: ${groupLabel}. Idade aproximada: ${ageLabel}.`;
 
   if (!isReady) {
@@ -162,6 +162,18 @@ export default function SymptomsPage() {
           <li>Alteracoes no sono ou no apetite.</li>
           <li>Febre, tosse, coriza, vomito ou diarreia.</li>
           <li>Desconfortos recorrentes, como irritacao ou choro incomum.</li>
+        </ul>
+      </PlaceholderCard>
+
+      <PlaceholderCard
+        title="O que fazer agora?"
+        description="Passos simples para se sentir mais seguro no dia a dia."
+      >
+        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
+          <li>Observe com calma e veja se algo muda com descanso ou colo.</li>
+          <li>Ofereca agua e alimentos leves se a crianca aceitar.</li>
+          <li>Mantenha a rotina simples e um ambiente tranquilo.</li>
+          <li>Anote quando comecou, o que melhora e o que piora.</li>
         </ul>
       </PlaceholderCard>
 
