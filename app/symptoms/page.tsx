@@ -18,7 +18,7 @@ const symptomsContentByGroup: Record<
     attention: [
       "Recusa constante de mamadas ou dificuldade para mamar.",
       "Poucas fraldas molhadas ao longo do dia.",
-      "Choro muito dificil de acalmar por periodos longos.",
+      "Choro dificil de acalmar por varios momentos do dia.",
     ],
   },
   toddler: {
@@ -89,28 +89,28 @@ export default function SymptomsPage() {
   const { profile, isReady } = useChildProfile();
   const ageSummary = calculateAgeSummary(profile?.birthDate ?? "");
   const ageInMonths = profile?.ageInMonths ?? ageSummary?.ageInMonths ?? null;
-  const ageGroup = ageSummary?.isPrenatal
-    ? "prenatal"
-    : getAgeGroup(ageInMonths);
+  const isPrenatal = ageSummary?.isPrenatal ?? false;
+  const ageGroup = isPrenatal ? "prenatal" : getAgeGroup(ageInMonths);
   const content =
     ageGroup === "unknown" || ageGroup === "prenatal"
       ? null
       : symptomsContentByGroup[ageGroup];
 
-  const ageLabel = formatAgeLabel(ageInMonths);
+  const hasProfile = Boolean(profile);
+  const ageLabel = isPrenatal ? "Em gestacao" : formatAgeLabel(ageInMonths);
   const groupLabel = ageGroupLabels[ageGroup];
-  const profileName = profile?.name?.trim() || "Nao informado";
-
   const attentionItems = content ? content.attention.slice(0, 3) : [];
   const noDataMessage =
     "Cada crianca se desenvolve no seu proprio ritmo. Observe mudancas persistentes.";
   const introText =
-    "Sintomas leves sao comuns na infancia. Observar com calma ajuda a entender o que a crianca pode estar passando.";
-  const profileSummary = !profile
-    ? "Perfil nao encontrado. O conteudo abaixo e geral."
-    : ageGroup === "prenatal"
+    "Sinais sao observacoes do dia a dia. Eles ajudam a entender como a crianca esta, sem conclusoes ou rotulos.";
+  const phaseSummary = !hasProfile
+    ? "Quando quiser, complete o perfil para ver a fase atual da crianca."
+    : isPrenatal
       ? "Perfil em gestacao. Este conteudo fica disponivel apos o nascimento."
-      : `Crianca: ${profileName}. Idade: ${ageLabel}. Faixa etaria: ${groupLabel}.`;
+      : ageGroup === "unknown"
+        ? "Fase a confirmar. Voce pode revisar a data de nascimento quando desejar."
+        : `Fase atual: ${groupLabel}. Idade aproximada: ${ageLabel}.`;
 
   if (!isReady) {
     return <p className="text-sm text-zinc-500">Carregando perfil...</p>;
@@ -129,21 +129,15 @@ export default function SymptomsPage() {
       <PlaceholderCard
         title="Introducao"
         description={introText}
-      >
-        <p className="mt-3 text-sm text-zinc-500">{profileSummary}</p>
-      </PlaceholderCard>
-
-      <PlaceholderCard title="O que observar em casa">
-        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
-          <li>Mudancas de comportamento, humor ou energia.</li>
-          <li>Alteracoes no sono ou no apetite.</li>
-          <li>Febre, tosse, coriza, vomito ou diarreia.</li>
-          <li>Desconfortos recorrentes, como irritacao ou choro incomum.</li>
-        </ul>
-      </PlaceholderCard>
+      />
 
       <PlaceholderCard
-        title="Sinais de atencao"
+        title="Resumo da fase atual"
+        description={phaseSummary}
+      />
+
+      <PlaceholderCard
+        title="Sinais de atencao nesta fase"
         description="Observe com calma e considere o contexto da rotina."
       >
         {attentionItems.length > 0 ? (
@@ -160,20 +154,27 @@ export default function SymptomsPage() {
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="Quando procurar ajuda"
-        description="Orientacoes gerais para apoiar sua decisao."
+        title="O que observar no dia a dia"
+        description="Exemplos simples para guiar sua observacao."
       >
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
-          <li>Sintomas que nao melhoram com o tempo ou voltam sempre.</li>
-          <li>Febre persistente que atrapalha a rotina.</li>
-          <li>Mudancas intensas no comportamento ou na disposicao.</li>
+          <li>Mudancas de comportamento, humor ou energia.</li>
+          <li>Alteracoes no sono ou no apetite.</li>
+          <li>Febre, tosse, coriza, vomito ou diarreia.</li>
+          <li>Desconfortos recorrentes, como irritacao ou choro incomum.</li>
         </ul>
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="Mensagem final"
-        description="Observar, registrar e buscar orientacao quando necessario ja e um cuidado importante. Voce nao precisa fazer isso sozinho."
-      />
+        title="Quando considerar buscar orientacao"
+        description="Pontos gerais para decidir com tranquilidade."
+      >
+        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
+          <li>Sintomas que nao melhoram com o tempo ou voltam sempre.</li>
+          <li>Febre que persiste e atrapalha a rotina.</li>
+          <li>Mudancas intensas no comportamento ou no conforto.</li>
+        </ul>
+      </PlaceholderCard>
     </section>
   );
 }
