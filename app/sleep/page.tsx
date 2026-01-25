@@ -91,6 +91,7 @@ function isFutureDate(value: string) {
 
 export default function SleepPage() {
   const { profile } = useChildProfile();
+  const hasProfile = Boolean(profile);
   const ageInMonths = profile?.ageInMonths ?? null;
   const prenatal = isFutureDate(profile?.birthDate ?? "");
   const ageGroup = prenatal ? "unknown" : getAgeGroup(ageInMonths);
@@ -100,10 +101,16 @@ export default function SleepPage() {
     ? content.expected
     : prenatal
       ? "Conteudo de sono fica disponivel apos o nascimento."
-      : "Sem dados suficientes para personalizar esta fase no momento.";
+      : hasProfile
+        ? "Ainda nao foi possivel personalizar esta fase. Voce pode seguir com orientacoes gerais."
+        : "Se quiser, complete o perfil para ver orientacoes ajustadas a fase.";
 
   const attentionItems = content ? content.alerts.slice(0, 3) : [];
   const tipItems = content ? content.tips : [];
+  const attentionFallback =
+    "Cada crianca tem seu ritmo. Observe mudancas persistentes com calma e carinho.";
+  const tipFallback =
+    "Sem sugestoes personalizadas agora. Uma rotina simples e consistente ja ajuda bastante.";
 
   return (
     <section className="space-y-6">
@@ -131,8 +138,7 @@ export default function SleepPage() {
           </ul>
         ) : (
           <p className="mt-3 text-sm text-zinc-500">
-            Sem dados suficientes para listar atencoes agora. Cada crianca tem
-            seu ritmo.
+            {attentionFallback}
           </p>
         )}
       </PlaceholderCard>
@@ -149,15 +155,26 @@ export default function SleepPage() {
           </ul>
         ) : (
           <p className="mt-3 text-sm text-zinc-500">
-            Sem sugestoes personalizadas agora. Um ambiente calmo e acolhedor ja
-            ajuda bastante.
+            {tipFallback}
           </p>
         )}
       </PlaceholderCard>
 
+      <PlaceholderCard
+        title="O que fazer agora?"
+        description="Passos simples para apoiar o sono com tranquilidade."
+      >
+        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
+          <li>Mantenha um horario regular para dormir e acordar.</li>
+          <li>Crie um ritual curto com banho, luz baixa e voz calma.</li>
+          <li>Evite estimulacao intensa perto da hora de dormir.</li>
+          <li>Observe por alguns dias e anote o que ajuda a acalmar.</li>
+        </ul>
+      </PlaceholderCard>
+
       <div className="rounded-lg border border-zinc-200 p-4 text-sm text-zinc-600">
-        Cada crianca tem seu ritmo. Se algo preocupa de forma constante,
-        converse com um profissional de saude de sua confianca.
+        Cada crianca tem seu ritmo. Se algo preocupa de forma constante, busque
+        orientacao de confianca.
       </div>
     </section>
   );
