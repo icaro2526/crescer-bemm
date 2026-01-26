@@ -1,0 +1,275 @@
+"use client";
+
+import PlaceholderCard from "@/components/PlaceholderCard";
+import { useChildProfile } from "@/features/child-profile/context";
+import { calculateAgeSummary } from "@/features/child-profile/utils";
+
+type AgeGroup = "infant" | "toddler" | "preschool" | "prenatal" | "unknown";
+
+type ProgressContent = {
+  summary: string;
+  indicators: {
+    language: string[];
+    sleep: string[];
+    nutrition: string[];
+    behavior: string[];
+    routine: string[];
+  };
+};
+
+const progressContentByGroup: Record<
+  Exclude<AgeGroup, "prenatal" | "unknown">,
+  ProgressContent
+> = {
+  infant: {
+    summary:
+      "Nos primeiros meses, pequenas mudancas no olhar, no sono e no contato ja mostram evolucao.",
+    indicators: {
+      language: [
+        "Responde a vozes com balbucios curtos.",
+        "Olha para quem fala e parece reconhecer sons.",
+      ],
+      sleep: [
+        "Sono mais organizado em pequenos blocos.",
+        "Demora menos para se acalmar em alguns dias.",
+      ],
+      nutrition: [
+        "Mostra sinais de fome e saciedade com mais clareza.",
+        "Aceita mamar ou comer com menos desconforto.",
+      ],
+      behavior: [
+        "Busca mais contato visual e sorrisos.",
+        "Fica mais tempo acordado e atento.",
+      ],
+      routine: [
+        "Reconhece momentos do dia, como banho e sono.",
+        "Aceita pequenas repeticoes na rotina.",
+      ],
+    },
+  },
+  toddler: {
+    summary:
+      "Nesta fase, a evolucao aparece em autonomia, linguagem e adaptacao a combinados simples.",
+    indicators: {
+      language: [
+        "Usa mais palavras para pedir o que quer.",
+        "Comeca a juntar palavras em pequenas frases.",
+      ],
+      sleep: [
+        "Aceita melhor a rotina de dormir.",
+        "Acorda com mais disposicao na maioria dos dias.",
+      ],
+      nutrition: [
+        "Mostra preferencia por alguns alimentos, mas aceita provar outros.",
+        "Consegue comer com mais autonomia.",
+      ],
+      behavior: [
+        "Birras ficam mais curtas quando recebe apoio.",
+        "Procura o adulto para mostrar algo.",
+      ],
+      routine: [
+        "Entende avisos simples antes de mudar de atividade.",
+        "Se adapta a horarios parecidos para comer e dormir.",
+      ],
+    },
+  },
+  preschool: {
+    summary:
+      "A evolucao costuma aparecer em comunicacao mais clara, participacao na rotina e previsibilidade.",
+    indicators: {
+      language: [
+        "Conta pequenas historias do dia.",
+        "Explica o que sente com palavras simples.",
+      ],
+      sleep: [
+        "Entende o momento de desacelerar.",
+        "Mantem horarios parecidos para dormir.",
+      ],
+      nutrition: [
+        "Aceita escolhas simples nas refeicoes.",
+        "Participa do momento a mesa com mais calma.",
+      ],
+      behavior: [
+        "Consegue esperar um pouco mais em algumas situacoes.",
+        "Mostra mais interesse em brincar com outras criancas.",
+      ],
+      routine: [
+        "Segue combinados simples com mais frequencia.",
+        "Se organiza melhor com ajuda para pequenas tarefas.",
+      ],
+    },
+  },
+};
+
+function getAgeGroup(ageInMonths: number | null): AgeGroup {
+  if (ageInMonths === null) {
+    return "unknown";
+  }
+
+  if (ageInMonths < 12) {
+    return "infant";
+  }
+
+  if (ageInMonths < 36) {
+    return "toddler";
+  }
+
+  if (ageInMonths <= 71) {
+    return "preschool";
+  }
+
+  return "unknown";
+}
+
+function formatAgeLabel(ageInMonths: number | null) {
+  if (ageInMonths === null) {
+    return "Idade a confirmar";
+  }
+
+  const years = Math.floor(ageInMonths / 12);
+  const months = ageInMonths % 12;
+  const parts: string[] = [];
+
+  if (years > 0) {
+    parts.push(`${years} ano${years === 1 ? "" : "s"}`);
+  }
+
+  if (months > 0 || years === 0) {
+    parts.push(`${months} mes${months === 1 ? "" : "es"}`);
+  }
+
+  return parts.join(" e ");
+}
+
+export default function ProgressPage() {
+  const { profile, isReady } = useChildProfile();
+  const ageSummary = calculateAgeSummary(profile?.birthDate ?? "");
+  const ageInMonths = profile?.ageInMonths ?? ageSummary?.ageInMonths ?? null;
+  const isPrenatal = ageSummary?.isPrenatal ?? false;
+  const ageGroup = isPrenatal ? "prenatal" : getAgeGroup(ageInMonths);
+  const content =
+    ageGroup === "unknown" || ageGroup === "prenatal"
+      ? null
+      : progressContentByGroup[ageGroup];
+
+  const hasProfile = Boolean(profile);
+  const ageLabel = isPrenatal ? "Em gestacao" : formatAgeLabel(ageInMonths);
+  const indicatorsFallback =
+    "Com o tempo, voce comecara a perceber mudancas sutis no dia a dia.";
+  const profileSummary = !hasProfile
+    ? "Sem perfil por enquanto. Se quiser, complete para personalizar esta pagina."
+    : isPrenatal
+      ? "Perfil em gestacao. Este conteudo fica disponivel apos o nascimento."
+      : `Idade aproximada: ${ageLabel}.`;
+
+  if (!isReady) {
+    return <p className="text-sm text-zinc-500">Carregando perfil...</p>;
+  }
+
+  return (
+    <section className="space-y-6">
+      <div className="space-y-1">
+        <h1 className="text-2xl font-semibold">Progresso</h1>
+        <p className="text-sm text-zinc-500">
+          Cada crianca tem seu proprio ritmo. Progresso nao e adiantar, e sim
+          evoluir com seguranca e afeto.
+        </p>
+      </div>
+
+      <PlaceholderCard title="Como interpretar o progresso">
+        <p className="text-sm text-zinc-500">
+          Observar evolucao e notar pequenas mudancas ao longo do tempo. Um
+          novo gesto, um sono mais estavel ou um momento de calma ja mostram
+          crescimento. Pausas e fases mais lentas tambem fazem parte do
+          desenvolvimento.
+        </p>
+        <p className="mt-3 text-sm text-zinc-500">{profileSummary}</p>
+      </PlaceholderCard>
+
+      <PlaceholderCard
+        title="Indicadores de progresso nesta fase"
+        description={content ? content.summary : indicatorsFallback}
+      >
+        {content ? (
+          <div className="mt-3 space-y-4 text-sm text-zinc-600">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                Linguagem
+              </p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                {content.indicators.language.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                Sono
+              </p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                {content.indicators.sleep.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                Alimentacao
+              </p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                {content.indicators.nutrition.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                Comportamento
+              </p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                {content.indicators.behavior.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                Rotina
+              </p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                {content.indicators.routine.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <p className="mt-3 text-sm text-zinc-500">{indicatorsFallback}</p>
+        )}
+      </PlaceholderCard>
+
+      <PlaceholderCard
+        title="O que observar ao longo do tempo"
+        description="Pequenos sinais de autonomia e previsibilidade."
+      >
+        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
+          <li>Mais autonomia em pequenas tarefas do dia a dia.</li>
+          <li>Melhor adaptacao a rotina e transicoes.</li>
+          <li>Comunicacao mais clara com gestos ou palavras.</li>
+          <li>Reducao de crises ou maior previsibilidade.</li>
+        </ul>
+      </PlaceholderCard>
+
+      <PlaceholderCard
+        title="O que fazer agora?"
+        description="Passos tranquilos para seguir com confianca."
+      >
+        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
+          <li>Continue observando sem pressa e registre pequenas mudancas.</li>
+          <li>Use as outras areas do app como apoio no dia a dia.</li>
+          <li>Confie no processo e busque orientacao quando necessario.</li>
+        </ul>
+      </PlaceholderCard>
+    </section>
+  );
+}
