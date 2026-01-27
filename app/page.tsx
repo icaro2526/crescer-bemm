@@ -78,12 +78,13 @@ export default function Home() {
   const shortcuts = useMemo(() => {
     const base = [
       {
-        label: "Desenvolvimento: ver marcos da fase",
+        label: "Desenvolvimento: entender marcos da fase",
         href: "/development",
       },
-      { label: "Sono: ajustar rotina de descanso", href: "/sleep" },
-      { label: "Nutricao: ideias para refeicoes", href: "/nutrition" },
-      { label: "Sintomas: observar sinais do dia", href: "/symptoms" },
+      { label: "Sono: organizar rotina de descanso", href: "/sleep" },
+      { label: "Nutricao: apoiar refeicoes do dia", href: "/nutrition" },
+      { label: "Sintomas: observar sinais com calma", href: "/symptoms" },
+      { label: "Comportamento: lidar com birras e limites", href: "/behavior" },
     ];
 
     if (!ageInMonths || isPrenatal) {
@@ -92,14 +93,14 @@ export default function Home() {
 
     // Adjust order by age group while keeping the priority sections.
     if (ageInMonths < 12) {
-      return [base[1], base[2], base[0], base[3]];
+      return [base[1], base[2], base[0], base[3], base[4]];
     }
 
     if (ageInMonths < 36) {
-      return [base[0], base[1], base[2], base[3]];
+      return [base[0], base[1], base[2], base[3], base[4]];
     }
 
-    return [base[0], base[2], base[1], base[3]];
+    return [base[0], base[2], base[1], base[3], base[4]];
   }, [ageInMonths, isPrenatal]);
 
   const stageLabel = currentStage?.label ?? (isPrenatal ? "Em gestacao" : "Fase a confirmar");
@@ -169,7 +170,7 @@ export default function Home() {
 
       <PlaceholderCard
         title="Proximos passos sugeridos"
-        description="Escolha um atalho para entender quando e por que acessar cada secao."
+        description="Cada atalho mostra quando acessar e como pode ajudar no dia a dia."
       >
         <div className="mt-3 flex flex-wrap gap-2">
           {shortcuts.map((shortcut) => (
