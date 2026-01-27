@@ -42,7 +42,7 @@ const ageGroupLabels: Record<AgeGroup, string> = {
   toddler: "1-3 anos",
   preschool: "3-5 anos",
   prenatal: "Gestacao",
-  unknown: "Faixa nao informada",
+  unknown: "Fase a confirmar",
 };
 
 function getAgeGroup(ageInMonths: number | null): AgeGroup {
@@ -67,7 +67,7 @@ function getAgeGroup(ageInMonths: number | null): AgeGroup {
 
 function formatAgeLabel(ageInMonths: number | null) {
   if (ageInMonths === null) {
-    return "Idade nao informada";
+    return "Idade a confirmar";
   }
 
   const years = Math.floor(ageInMonths / 12);
@@ -101,11 +101,11 @@ export default function SymptomsPage() {
   const groupLabel = ageGroupLabels[ageGroup];
   const attentionItems = content ? content.attention.slice(0, 3) : [];
   const noDataMessage =
-    "Cada crianca tem seu ritmo. Observe com calma mudancas que se repetem e anote o que voce percebe.";
+    "Cada crianca tem seu ritmo. Observe com calma e anote o que voce percebe.";
   const introText =
     "Sinais sao observacoes do dia a dia. Eles ajudam a entender como a crianca esta, sem conclusoes ou rotulos.";
   const phaseSummary = !hasProfile
-    ? "Sem perfil por enquanto. Se quiser, complete o perfil para personalizar esta pagina."
+    ? "Sem perfil por enquanto. Se quiser, complete o perfil para ver a fase atual."
     : isPrenatal
       ? "Perfil em gestacao. Este conteudo fica disponivel apos o nascimento."
       : ageGroup === "unknown"
@@ -132,13 +132,13 @@ export default function SymptomsPage() {
       />
 
       <PlaceholderCard
-        title="Resumo da fase atual"
+        title="Resumo da fase"
         description={phaseSummary}
       />
 
       <PlaceholderCard
-        title="Sinais de atencao nesta fase"
-        description="Observe com calma e considere o contexto da rotina."
+        title="Atencoes para esta fase"
+        description="Observacoes do dia a dia, sem alarmismo."
       >
         {attentionItems.length > 0 ? (
           <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
@@ -166,8 +166,8 @@ export default function SymptomsPage() {
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="O que fazer agora?"
-        description="Passos simples para se sentir mais seguro no dia a dia."
+        title="Como apoiar no dia a dia"
+        description="Dicas simples para acompanhar com mais tranquilidade."
       >
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
           <li>Observe com calma e veja se algo muda com descanso ou colo.</li>
@@ -178,13 +178,13 @@ export default function SymptomsPage() {
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="Quando considerar buscar orientacao"
-        description="Pontos gerais para decidir com tranquilidade."
+        title="O que fazer agora?"
+        description="Passos tranquilos para seguir com confianca."
       >
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
-          <li>Sintomas que nao melhoram com o tempo ou voltam sempre.</li>
-          <li>Febre que persiste e atrapalha a rotina.</li>
-          <li>Mudancas intensas no comportamento ou no conforto.</li>
+          <li>Continue observando com calma e registre o que notar.</li>
+          <li>Use as outras areas do app como apoio no dia a dia.</li>
+          <li>Se algo persistir, busque orientacao de confianca.</li>
         </ul>
       </PlaceholderCard>
     </section>
