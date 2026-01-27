@@ -123,9 +123,9 @@ export default function NutritionPage() {
   const headerText = content
     ? content.header
     : prenatal
-      ? "Conteudo de nutricao fica disponivel apos o nascimento."
+      ? "O conteudo de nutricao fica disponivel apos o nascimento."
       : hasProfile
-        ? "Ainda nao foi possivel personalizar esta fase. Use orientacoes gerais por enquanto."
+        ? "Ainda nao foi possivel identificar a fase. Use orientacoes gerais por enquanto."
         : "Se quiser, complete o perfil para ver orientacoes ajustadas a fase.";
 
   const expectedItems = content ? content.expected.slice(0, 5) : [];
@@ -145,7 +145,7 @@ export default function NutritionPage() {
         <p className="text-sm text-zinc-500">{headerText}</p>
       </div>
 
-      <PlaceholderCard title="O que e esperado nesta fase">
+      <PlaceholderCard title="Resumo da fase">
         {expectedItems.length > 0 ? (
           <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
             {expectedItems.map((item) => (
@@ -161,7 +161,7 @@ export default function NutritionPage() {
 
       <PlaceholderCard
         title="Atencoes para esta fase"
-        description="Sinais leves para observar com calma, sem alarmismo."
+        description="Observacoes do dia a dia, sem alarmismo."
       >
         {alertItems.length > 0 ? (
           <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
@@ -177,7 +177,7 @@ export default function NutritionPage() {
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="Como estimular no dia a dia"
+        title="Como apoiar no dia a dia"
         description="Dicas praticas e aplicaveis a rotina da familia."
       >
         {tipItems.length > 0 ? (
