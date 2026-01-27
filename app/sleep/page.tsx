@@ -100,15 +100,15 @@ export default function SleepPage() {
   const expectedText = content
     ? content.expected
     : prenatal
-      ? "Conteudo de sono fica disponivel apos o nascimento."
+      ? "O conteudo de sono fica disponivel apos o nascimento."
       : hasProfile
-        ? "Ainda nao foi possivel personalizar esta fase. Voce pode seguir com orientacoes gerais."
+        ? "Ainda nao foi possivel identificar a fase. Voce pode seguir com orientacoes gerais."
         : "Se quiser, complete o perfil para ver orientacoes ajustadas a fase.";
 
   const attentionItems = content ? content.alerts.slice(0, 3) : [];
   const tipItems = content ? content.tips : [];
   const attentionFallback =
-    "Cada crianca tem seu ritmo. Observe mudancas persistentes com calma e carinho.";
+    "Cada crianca tem seu ritmo. Observe mudancas que se repetem com calma e carinho.";
   const tipFallback =
     "Sem sugestoes personalizadas agora. Uma rotina simples e consistente ja ajuda bastante.";
 
@@ -117,18 +117,18 @@ export default function SleepPage() {
       <div className="space-y-1">
         <h1 className="text-2xl font-semibold">Sono</h1>
         <p className="text-sm text-zinc-500">
-          Orientacao acolhedora para apoiar habitos de sono no dia a dia.
+          Orientacao acolhedora para apoiar o sono no dia a dia.
         </p>
       </div>
 
       <PlaceholderCard
-        title="O que e esperado para esta fase"
+        title="Resumo da fase"
         description={expectedText}
       />
 
       <PlaceholderCard
         title="Atencoes para esta fase"
-        description="Sinais leves para observar com calma, sem alarmismo."
+        description="Observacoes do dia a dia, sem alarmismo."
       >
         {attentionItems.length > 0 ? (
           <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
@@ -144,7 +144,7 @@ export default function SleepPage() {
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="Como estimular habitos de sono no dia a dia"
+        title="Como apoiar no dia a dia"
         description="Dicas simples e praticas, com foco na rotina da familia."
       >
         {tipItems.length > 0 ? (
