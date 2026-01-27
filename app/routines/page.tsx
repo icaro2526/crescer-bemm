@@ -130,8 +130,8 @@ export default function RoutinesPage() {
     : isPrenatal
       ? "O conteudo de rotinas fica disponivel apos o nascimento."
       : hasProfile
-        ? "Ainda nao foi possivel personalizar esta fase. Use observacoes gerais por enquanto."
-        : "Sem perfil por enquanto. Se quiser, complete para personalizar esta pagina.";
+        ? "Ainda nao foi possivel identificar a fase. Use observacoes gerais por enquanto."
+        : "Sem perfil por enquanto. Se quiser, complete para ver a fase atual.";
 
   const observeItems = content ? content.observe : [];
   const tipItems = content ? content.tips : [];
@@ -155,7 +155,7 @@ export default function RoutinesPage() {
       </div>
 
       <PlaceholderCard
-        title="O que observar nesta fase"
+        title="Resumo da fase"
         description={
           hasProfile && !isPrenatal && content
             ? `${observeDescription} Fase atual: ${groupLabel}. Idade aproximada: ${ageLabel}.`
@@ -174,7 +174,7 @@ export default function RoutinesPage() {
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="Como criar rotinas no dia a dia"
+        title="Como apoiar no dia a dia"
         description="Dicas praticas para aplicar aos poucos."
       >
         {tipItems.length > 0 ? (
