@@ -23,49 +23,49 @@ const progressContentByGroup: Record<
 > = {
   infant: {
     summary:
-      "Nos primeiros meses, pequenas mudancas no olhar, no sono e no contato ja mostram evolucao.",
+      "Nos primeiros meses, pequenas mudancas no olhar, no sono e no contato mostram evolucao.",
     indicators: {
       language: [
-        "Responde a vozes com balbucios curtos.",
-        "Olha para quem fala e parece reconhecer sons.",
+        "Responde a vozes com sons e balbucios curtos.",
+        "Olha para quem fala e reage a sons familiares.",
       ],
       sleep: [
-        "Sono mais organizado em pequenos blocos.",
-        "Demora menos para se acalmar em alguns dias.",
+        "Sono mais organizado em pequenos blocos de tempo.",
+        "Em alguns dias, se acalma mais rapido.",
       ],
       nutrition: [
         "Mostra sinais de fome e saciedade com mais clareza.",
-        "Aceita mamar ou comer com menos desconforto.",
+        "Aceita mamar ou comer com mais conforto.",
       ],
       behavior: [
-        "Busca mais contato visual e sorrisos.",
-        "Fica mais tempo acordado e atento.",
+        "Busca mais contato visual e sorri com mais frequencia.",
+        "Fica acordado e atento por mais tempo.",
       ],
       routine: [
-        "Reconhece momentos do dia, como banho e sono.",
+        "Reconhece momentos do dia, como banho e descanso.",
         "Aceita pequenas repeticoes na rotina.",
       ],
     },
   },
   toddler: {
     summary:
-      "Nesta fase, a evolucao aparece em autonomia, linguagem e adaptacao a combinados simples.",
+      "Nesta fase, a evolucao aparece na autonomia e na forma de se comunicar e se adaptar.",
     indicators: {
       language: [
         "Usa mais palavras para pedir o que quer.",
-        "Comeca a juntar palavras em pequenas frases.",
+        "Comeca a juntar palavras em frases curtas.",
       ],
       sleep: [
         "Aceita melhor a rotina de dormir.",
-        "Acorda com mais disposicao na maioria dos dias.",
+        "Acorda com mais disposicao em muitos dias.",
       ],
       nutrition: [
-        "Mostra preferencia por alguns alimentos, mas aceita provar outros.",
+        "Mostra preferencia por alguns alimentos, mas aceita provar novos.",
         "Consegue comer com mais autonomia.",
       ],
       behavior: [
         "Birras ficam mais curtas quando recebe apoio.",
-        "Procura o adulto para mostrar algo.",
+        "Procura o adulto para mostrar algo que fez.",
       ],
       routine: [
         "Entende avisos simples antes de mudar de atividade.",
@@ -75,14 +75,14 @@ const progressContentByGroup: Record<
   },
   preschool: {
     summary:
-      "A evolucao costuma aparecer em comunicacao mais clara, participacao na rotina e previsibilidade.",
+      "A evolucao costuma aparecer em comunicacao mais clara e mais previsibilidade na rotina.",
     indicators: {
       language: [
-        "Conta pequenas historias do dia.",
+        "Conta pequenas historias sobre o dia.",
         "Explica o que sente com palavras simples.",
       ],
       sleep: [
-        "Entende o momento de desacelerar.",
+        "Entende quando e hora de desacelerar.",
         "Mantem horarios parecidos para dormir.",
       ],
       nutrition: [
@@ -155,12 +155,12 @@ export default function ProgressPage() {
   const hasProfile = Boolean(profile);
   const ageLabel = isPrenatal ? "Em gestacao" : formatAgeLabel(ageInMonths);
   const indicatorsFallback =
-    "Com o tempo, voce comecara a perceber mudancas sutis no dia a dia.";
+    "Com o tempo, voce vai perceber mudancas sutis no dia a dia.";
   const profileSummary = !hasProfile
-    ? "Sem perfil por enquanto. Se quiser, complete para personalizar esta pagina."
+    ? "Sem perfil por enquanto. Se quiser, complete para ver indicadores por fase."
     : isPrenatal
       ? "Perfil em gestacao. Este conteudo fica disponivel apos o nascimento."
-      : `Idade aproximada: ${ageLabel}.`;
+      : `Idade aproximada: ${ageLabel}. Este resumo e um guia leve.`;
 
   if (!isReady) {
     return <p className="text-sm text-zinc-500">Carregando perfil...</p>;
@@ -172,16 +172,15 @@ export default function ProgressPage() {
         <h1 className="text-2xl font-semibold">Progresso</h1>
         <p className="text-sm text-zinc-500">
           Cada crianca tem seu proprio ritmo. Progresso nao e adiantar, e sim
-          evoluir com seguranca e afeto.
+          evoluir com seguranca, no seu tempo.
         </p>
       </div>
 
       <PlaceholderCard title="Como interpretar o progresso">
         <p className="text-sm text-zinc-500">
           Observar evolucao e notar pequenas mudancas ao longo do tempo. Um
-          novo gesto, um sono mais estavel ou um momento de calma ja mostram
-          crescimento. Pausas e fases mais lentas tambem fazem parte do
-          desenvolvimento.
+          novo gesto, um sono mais estavel ou um momento de calma ja contam.
+          Pausas e fases mais lentas tambem fazem parte do caminho.
         </p>
         <p className="mt-3 text-sm text-zinc-500">{profileSummary}</p>
       </PlaceholderCard>
@@ -250,13 +249,13 @@ export default function ProgressPage() {
 
       <PlaceholderCard
         title="O que observar ao longo do tempo"
-        description="Pequenos sinais de autonomia e previsibilidade."
+        description="Pequenos sinais de autonomia e mais previsibilidade."
       >
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
           <li>Mais autonomia em pequenas tarefas do dia a dia.</li>
-          <li>Melhor adaptacao a rotina e transicoes.</li>
+          <li>Melhor adaptacao a rotina e as transicoes.</li>
           <li>Comunicacao mais clara com gestos ou palavras.</li>
-          <li>Reducao de crises ou maior previsibilidade.</li>
+          <li>Mais previsibilidade nas reacoes do dia a dia.</li>
         </ul>
       </PlaceholderCard>
 
@@ -267,7 +266,7 @@ export default function ProgressPage() {
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
           <li>Continue observando sem pressa e registre pequenas mudancas.</li>
           <li>Use as outras areas do app como apoio no dia a dia.</li>
-          <li>Confie no processo e busque orientacao quando necessario.</li>
+          <li>Confie no processo e busque orientacao quando precisar.</li>
         </ul>
       </PlaceholderCard>
     </section>
