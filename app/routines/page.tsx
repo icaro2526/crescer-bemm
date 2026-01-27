@@ -33,7 +33,7 @@ const routineContentByGroup: Record<
   },
   toddler: {
     summary:
-      "Com mais autonomia, a crianca precisa de transicoes suaves e repeticao.",
+      "Com mais autonomia, a crianca se beneficia de transicoes suaves e repeticao.",
     observe: [
       "Resistencia ao trocar de atividade.",
       "Busca por fazer coisas sozinha.",
@@ -138,7 +138,7 @@ export default function RoutinesPage() {
   const observeFallback =
     "Rotinas se constroem aos poucos. Pequenos combinados ja fazem diferenca.";
   const tipsFallback =
-    "Comece com um passo simples e repita por alguns dias.";
+    "Comece com um passo simples e repita por alguns dias, com flexibilidade.";
 
   if (!isReady) {
     return <p className="text-sm text-zinc-500">Carregando perfil...</p>;
@@ -149,8 +149,8 @@ export default function RoutinesPage() {
       <div className="space-y-1">
         <h1 className="text-2xl font-semibold">Rotinas</h1>
         <p className="text-sm text-zinc-500">
-          Rotinas trazem previsibilidade e conforto. Pequenos combinados deixam
-          o dia a dia mais leve.
+          Rotinas trazem previsibilidade e conforto, mas podem ser flexiveis.
+          Pequenos combinados deixam o dia a dia mais leve.
         </p>
       </div>
 
@@ -175,7 +175,7 @@ export default function RoutinesPage() {
 
       <PlaceholderCard
         title="Como apoiar no dia a dia"
-        description="Dicas praticas para aplicar aos poucos."
+        description="Dicas praticas para aplicar aos poucos, com flexibilidade."
       >
         {tipItems.length > 0 ? (
           <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
