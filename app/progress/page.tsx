@@ -155,12 +155,12 @@ export default function ProgressPage() {
   const hasProfile = Boolean(profile);
   const ageLabel = isPrenatal ? "Em gestacao" : formatAgeLabel(ageInMonths);
   const indicatorsFallback =
-    "Com o tempo, voce vai perceber mudancas sutis no dia a dia.";
+    "Com o tempo, pequenas mudancas vao aparecer no dia a dia.";
   const profileSummary = !hasProfile
-    ? "Sem perfil por enquanto. Se quiser, complete para ver indicadores por fase."
+    ? "Sem perfil por enquanto. Se quiser, complete para ver atencoes por fase."
     : isPrenatal
       ? "Perfil em gestacao. Este conteudo fica disponivel apos o nascimento."
-      : `Idade aproximada: ${ageLabel}. Este resumo e um guia leve.`;
+      : `Idade aproximada: ${ageLabel}. Use estas atencoes como guia leve.`;
 
   if (!isReady) {
     return <p className="text-sm text-zinc-500">Carregando perfil...</p>;
@@ -171,22 +171,22 @@ export default function ProgressPage() {
       <div className="space-y-1">
         <h1 className="text-2xl font-semibold">Progresso</h1>
         <p className="text-sm text-zinc-500">
-          Cada crianca tem seu proprio ritmo. Progresso nao e adiantar, e sim
-          evoluir com seguranca, no seu tempo.
+          Cada crianca tem seu proprio ritmo. Progresso e seguir com seguranca,
+          no seu tempo.
         </p>
       </div>
 
-      <PlaceholderCard title="Como interpretar o progresso">
+      <PlaceholderCard title="Atencoes para esta fase">
         <p className="text-sm text-zinc-500">
-          Observar evolucao e notar pequenas mudancas ao longo do tempo. Um
-          novo gesto, um sono mais estavel ou um momento de calma ja contam.
-          Pausas e fases mais lentas tambem fazem parte do caminho.
+          Atencoes sao observacoes do dia a dia, nao rotulos. Se por alguns dias
+          o sono, o humor ou o interesse em brincar mudarem muito, vale observar
+          com calma e anotar.
         </p>
         <p className="mt-3 text-sm text-zinc-500">{profileSummary}</p>
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="Indicadores de progresso nesta fase"
+        title="Resumo da fase"
         description={content ? content.summary : indicatorsFallback}
       >
         {content ? (
@@ -248,14 +248,14 @@ export default function ProgressPage() {
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="O que observar ao longo do tempo"
-        description="Pequenos sinais de autonomia e mais previsibilidade."
+        title="Como apoiar no dia a dia"
+        description="Dicas simples para apoiar a rotina com calma."
       >
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
-          <li>Mais autonomia em pequenas tarefas do dia a dia.</li>
-          <li>Melhor adaptacao a rotina e as transicoes.</li>
-          <li>Comunicacao mais clara com gestos ou palavras.</li>
-          <li>Mais previsibilidade nas reacoes do dia a dia.</li>
+          <li>Ofereca pequenas escolhas para incentivar autonomia.</li>
+          <li>Avise antes de mudar de atividade e mantenha combinados simples.</li>
+          <li>Valorize tentativas de comunicacao com gestos ou palavras.</li>
+          <li>Mantenha horarios parecidos para trazer previsibilidade.</li>
         </ul>
       </PlaceholderCard>
 
