@@ -54,15 +54,15 @@ export default function DevelopmentPage() {
   if (!profile) {
     return (
       <PlaceholderCard
-        title="Perfil nao encontrado"
-        description="Conclua o onboarding para acessar esta secao."
+        title="Perfil ainda nao preenchido"
+        description="Quando quiser, complete o perfil para acessar esta secao."
       />
     );
   }
 
   const isPrenatal = ageSummary?.isPrenatal ?? false;
-  const ageLabel = profile.ageLabel ?? ageSummary?.ageLabel ?? "Idade nao informada";
-  const currentStageLabel = currentStage?.label ?? "Faixa nao identificada";
+  const ageLabel = profile.ageLabel ?? ageSummary?.ageLabel ?? "Idade a confirmar";
+  const currentStageLabel = currentStage?.label ?? "Fase a confirmar";
 
   const routineSummary = [
     {
@@ -84,17 +84,17 @@ export default function DevelopmentPage() {
       <div className="space-y-1">
         <h1 className="text-2xl font-semibold">Desenvolvimento</h1>
         <p className="text-sm text-zinc-500">
-          Conteudo pratico e empatico para apoiar o desenvolvimento. Cada crianca
-          tem seu ritmo.
+          Orientacao pratica e acolhedora para apoiar o desenvolvimento no dia a dia.
+          Cada crianca tem seu ritmo.
         </p>
       </div>
 
       <PlaceholderCard
-        title="Resumo do perfil"
+        title="Resumo da fase"
         description={`Crianca: ${profile.name || "Nao informado"}. Idade: ${ageLabel}.`}
       >
         <div className="mt-3 space-y-1 text-xs text-zinc-500">
-          <p>Faixa atual: {currentStageLabel}.</p>
+          <p>Fase atual: {currentStageLabel}.</p>
           {routineSummary.map((item) => (
             <p key={item.label}>
               {item.label}: {item.value}.
@@ -105,7 +105,7 @@ export default function DevelopmentPage() {
 
       <div className="space-y-2">
         <p className="text-xs uppercase tracking-wide text-zinc-500">
-          Faixas etarias
+          Faixas por idade
         </p>
         <div className="flex gap-2 overflow-x-auto pb-1 text-xs">
           {developmentStages.map((stage) => {
@@ -129,16 +129,16 @@ export default function DevelopmentPage() {
       {isPrenatal && (
         <SectionCard
           title="Perfil em gestacao"
-          description="O conteudo de desenvolvimento infantil sera mostrado apos o nascimento."
+          description="O conteudo de desenvolvimento fica disponivel apos o nascimento."
           items={["Atualize a data de nascimento quando estiver disponivel."]}
         />
       )}
 
       {!isPrenatal && !currentStage && (
         <SectionCard
-          title="Idade nao disponivel"
-          description="Nao foi possivel calcular a faixa etaria. Verifique a data de nascimento no perfil."
-          items={["Atualize o perfil para liberar os marcos personalizados."]}
+          title="Fase a confirmar"
+          description="Ainda nao foi possivel identificar a fase. Verifique a data de nascimento no perfil."
+          items={["Revise o perfil para liberar os marcos personalizados."]}
         />
       )}
 
@@ -146,11 +146,11 @@ export default function DevelopmentPage() {
         <div className="space-y-6">
           <div className="space-y-3">
             <SectionCard
-              title="O que e esperado nessa fase"
-              description="Marcos comuns para a idade atual. Eles podem variar entre criancas."
+              title="O que observar nesta fase"
+              description="Marcos comuns para a fase atual. Cada crianca tem seu ritmo."
               items={[
                 "Confira os marcos por area abaixo.",
-                "Use como referencia, nao como comparacao.",
+                "Use como guia leve, nao como comparacao.",
               ]}
               emphasis="highlight"
             />
@@ -169,24 +169,24 @@ export default function DevelopmentPage() {
 
           <SectionCard
             title="Atencoes para esta fase"
-            description="Pontos leves para observar com calma. Variacoes sao comuns e cada crianca tem seu ritmo."
+            description="Observacoes leves para acompanhar com calma no dia a dia."
             items={
               attentionItems.length > 0
                 ? attentionItems
                 : [
-                    "Sem dados suficientes para destacar alertas leves agora. Continue acompanhando com tranquilidade.",
+                    "Se nao houver itens agora, siga observando com tranquilidade.",
                   ]
             }
           />
 
           <SectionCard
             title="Como estimular no dia a dia"
-            description="Sugestoes simples e praticas, sem prescricao medica."
+            description="Sugestoes simples e praticas para o dia a dia."
             items={
               stimulationItems.length > 0
                 ? stimulationItems
                 : [
-                    "Sem sugestoes personalizadas disponiveis agora. Atividades simples e afetuosas ja fazem diferenca.",
+                    "Se nao houver sugestoes agora, atividades simples e afetuosas ja ajudam bastante.",
                   ]
             }
           />
