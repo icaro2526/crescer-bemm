@@ -39,7 +39,7 @@ const behaviorContentByGroup: Record<
   },
   toddler: {
     summary:
-      "Com mais autonomia, a crianca explora e testa limites. Birras curtas podem acontecer.",
+      "Com mais autonomia, a crianca explora e testa limites. Birras curtas podem acontecer no dia a dia.",
     expected: [
       "Birras quando se frustra ou quer algo.",
       "Exploracao constante de objetos e ambientes.",
@@ -145,7 +145,7 @@ export default function BehaviorPage() {
     ? content.summary
     : isPrenatal
       ? "O conteudo de comportamento fica disponivel apos o nascimento."
-      : "Cada crianca tem seu ritmo. Use este resumo como apoio no dia a dia.";
+      : "Cada crianca tem seu ritmo. Use este resumo como apoio leve no dia a dia.";
   const profileText = !hasProfile
     ? "Sem perfil por enquanto. Se quiser, complete para ver a fase atual."
     : isPrenatal
@@ -158,7 +158,7 @@ export default function BehaviorPage() {
   const expectedFallback =
     "Comportamentos variam bastante. Observe com calma e valorize pequenos avancos.";
   const attentionFallback =
-    "Por enquanto, observe com calma. Pequenas mudancas fazem parte do dia a dia.";
+    "Se nao houver sinais para destacar agora, siga observando com calma.";
   const tipsFallback =
     "Rotinas simples e previsiveis ajudam bastante no dia a dia.";
 
@@ -193,7 +193,7 @@ export default function BehaviorPage() {
 
       <PlaceholderCard
         title="Atencoes para esta fase"
-        description="Observacoes do dia a dia, sem rotulos."
+        description="Observacoes do dia a dia, sem alarmismo."
       >
         {attentionItems.length > 0 ? (
           <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
@@ -207,7 +207,7 @@ export default function BehaviorPage() {
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="Como apoiar no dia a dia"
+        title="Como estimular no dia a dia"
         description="Dicas simples, com foco em rotina e vinculo."
       >
         {tipsItems.length > 0 ? (
