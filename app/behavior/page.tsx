@@ -27,7 +27,7 @@ const behaviorContentByGroup: Record<
       "Reage a vozes e a rostos conhecidos.",
     ],
     attention: [
-      "Pouca reacao a vozes ou contato.",
+      "Pouca reacao a vozes ou ao contato.",
       "Choro dificil de acalmar por longos periodos.",
       "Pouco interesse em olhar para pessoas.",
     ],
@@ -39,7 +39,7 @@ const behaviorContentByGroup: Record<
   },
   toddler: {
     summary:
-      "Com mais autonomia, a crianca explora e testa limites. Birras curtas sao comuns.",
+      "Com mais autonomia, a crianca explora e testa limites. Birras curtas podem acontecer.",
     expected: [
       "Birras quando se frustra ou quer algo.",
       "Exploracao constante de objetos e ambientes.",
@@ -47,7 +47,7 @@ const behaviorContentByGroup: Record<
       "Busca atencao do cuidador com gestos e fala.",
     ],
     attention: [
-      "Birras muito longas e frequentes, sem alivio.",
+      "Birras muito longas e frequentes, com dificuldade para se acalmar.",
       "Pouca interacao ou interesse em brincar com adultos.",
       "Mudanca brusca de comportamento por varios dias.",
     ],
@@ -69,7 +69,7 @@ const behaviorContentByGroup: Record<
     attention: [
       "Dificuldade constante para participar de brincadeiras.",
       "Mudancas fortes de humor que atrapalham a rotina.",
-      "Agressividade frequente sem alivio.",
+      "Reacoes fisicas frequentes, como empurrar ou bater.",
     ],
     tips: [
       "Regras simples e combinados claros ajudam no dia a dia.",
@@ -145,9 +145,9 @@ export default function BehaviorPage() {
     ? content.summary
     : isPrenatal
       ? "O conteudo de comportamento fica disponivel apos o nascimento."
-      : "Cada crianca tem seu ritmo. Use este resumo como guia leve no dia a dia.";
+      : "Cada crianca tem seu ritmo. Use este resumo como apoio no dia a dia.";
   const profileText = !hasProfile
-    ? "Perfil ainda nao preenchido. Quando quiser, complete para personalizar esta pagina."
+    ? "Sem perfil por enquanto. Se quiser, complete para ver a fase atual."
     : isPrenatal
       ? "Perfil em gestacao. Este conteudo aparece apos o nascimento."
       : `Fase atual: ${groupLabel}. Idade aproximada: ${ageLabel}.`;
@@ -158,7 +158,7 @@ export default function BehaviorPage() {
   const expectedFallback =
     "Comportamentos variam bastante. Observe com calma e valorize pequenos avancos.";
   const attentionFallback =
-    "Estas sao observacoes, nao diagnosticos. Se algo persistir, acompanhe com calma.";
+    "Por enquanto, observe com calma. Pequenas mudancas fazem parte do dia a dia.";
   const tipsFallback =
     "Rotinas simples e previsiveis ajudam bastante no dia a dia.";
 
@@ -171,11 +171,11 @@ export default function BehaviorPage() {
       <div className="space-y-1">
         <h1 className="text-2xl font-semibold">Comportamento</h1>
         <p className="text-sm text-zinc-500">
-          Orientacao pratica e acolhedora para o dia a dia em familia.
+          Orientacao pratica e acolhedora para o dia a dia da familia.
         </p>
       </div>
 
-      <PlaceholderCard title="Resumo da fase atual" description={summaryText}>
+      <PlaceholderCard title="Resumo da fase" description={summaryText}>
         <p className="mt-3 text-sm text-zinc-500">{profileText}</p>
       </PlaceholderCard>
 
@@ -192,8 +192,8 @@ export default function BehaviorPage() {
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="Sinais de atencao"
-        description="Observacoes do dia a dia, nao diagnosticos."
+        title="Atencoes para esta fase"
+        description="Observacoes do dia a dia, sem rotulos."
       >
         {attentionItems.length > 0 ? (
           <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
@@ -207,7 +207,7 @@ export default function BehaviorPage() {
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="Como lidar no dia a dia"
+        title="Como apoiar no dia a dia"
         description="Dicas simples, com foco em rotina e vinculo."
       >
         {tipsItems.length > 0 ? (
