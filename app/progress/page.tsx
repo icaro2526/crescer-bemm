@@ -155,12 +155,12 @@ export default function ProgressPage() {
   const hasProfile = Boolean(profile);
   const ageLabel = isPrenatal ? "Em gestacao" : formatAgeLabel(ageInMonths);
   const indicatorsFallback =
-    "Com o tempo, pequenas mudancas vao aparecer no dia a dia.";
+    "Com o tempo, pequenas mudancas vao aparecer no dia a dia, mesmo que com pausas.";
   const profileSummary = !hasProfile
-    ? "Sem perfil por enquanto. Se quiser, complete para ver atencoes por fase."
+    ? "Sem perfil por enquanto. Se quiser, complete para ver o resumo por fase."
     : isPrenatal
       ? "Perfil em gestacao. Este conteudo fica disponivel apos o nascimento."
-      : `Idade aproximada: ${ageLabel}. Use estas atencoes como guia leve.`;
+      : `Idade aproximada: ${ageLabel}. Use este resumo como guia leve, sem pressa.`;
 
   if (!isReady) {
     return <p className="text-sm text-zinc-500">Carregando perfil...</p>;
@@ -171,16 +171,16 @@ export default function ProgressPage() {
       <div className="space-y-1">
         <h1 className="text-2xl font-semibold">Progresso</h1>
         <p className="text-sm text-zinc-500">
-          Cada crianca tem seu proprio ritmo. Progresso e seguir com seguranca,
-          no seu tempo.
+          Cada crianca tem seu proprio ritmo. Progresso e acompanhar pequenos
+          passos, com idas e voltas, no seu tempo.
         </p>
       </div>
 
       <PlaceholderCard title="Atencoes para esta fase">
         <p className="text-sm text-zinc-500">
-          Atencoes sao observacoes do dia a dia, nao rotulos. Se por alguns dias
-          o sono, o humor ou o interesse em brincar mudarem muito, vale observar
-          com calma e anotar.
+          Atencoes sao observacoes do dia a dia, nao rotulos. Se alguns sinais
+          se repetirem por um tempo e afetarem a rotina, vale observar com calma
+          e anotar.
         </p>
         <p className="mt-3 text-sm text-zinc-500">{profileSummary}</p>
       </PlaceholderCard>
