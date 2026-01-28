@@ -85,7 +85,7 @@ export default function DevelopmentPage() {
         <h1 className="text-2xl font-semibold">Desenvolvimento</h1>
         <p className="text-sm text-zinc-500">
           Orientacao pratica e acolhedora para apoiar o desenvolvimento no dia a dia.
-          Cada crianca tem seu ritmo.
+          O percurso pode ter idas e voltas, e cada crianca tem seu ritmo.
         </p>
       </div>
 
@@ -137,7 +137,7 @@ export default function DevelopmentPage() {
       {!isPrenatal && !currentStage && (
         <SectionCard
           title="Fase a confirmar"
-          description="Ainda nao foi possivel identificar a fase. Verifique a data de nascimento no perfil."
+          description="Ainda nao foi possivel identificar a fase. Revise a data de nascimento quando puder."
           items={["Revise o perfil para liberar os marcos personalizados."]}
         />
       )}
@@ -147,7 +147,7 @@ export default function DevelopmentPage() {
           <div className="space-y-3">
             <SectionCard
               title="O que observar nesta fase"
-              description="Marcos comuns para a fase atual. Cada crianca tem seu ritmo."
+              description="Marcos comuns para a fase atual, com variacoes naturais."
               items={[
                 "Confira os marcos por area abaixo.",
                 "Use como guia leve, nao como comparacao.",
