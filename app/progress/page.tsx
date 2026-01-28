@@ -155,7 +155,7 @@ export default function ProgressPage() {
   const hasProfile = Boolean(profile);
   const ageLabel = isPrenatal ? "Em gestacao" : formatAgeLabel(ageInMonths);
   const indicatorsFallback =
-    "Com o tempo, pequenas mudancas vao aparecer no dia a dia, mesmo que com pausas.";
+    "Com o tempo, pequenas mudancas vao aparecer no dia a dia, mesmo com pausas.";
   const profileSummary = !hasProfile
     ? "Sem perfil por enquanto. Se quiser, complete para ver o resumo por fase."
     : isPrenatal
@@ -179,8 +179,8 @@ export default function ProgressPage() {
       <PlaceholderCard title="Atencoes para esta fase">
         <p className="text-sm text-zinc-500">
           Atencoes sao observacoes do dia a dia, nao rotulos. Se alguns sinais
-          se repetirem por um tempo e afetarem a rotina, vale observar com calma
-          e anotar.
+          se repetirem por um tempo e mexerem com a rotina, vale observar com
+          calma e anotar.
         </p>
         <p className="mt-3 text-sm text-zinc-500">{profileSummary}</p>
       </PlaceholderCard>
@@ -249,7 +249,7 @@ export default function ProgressPage() {
 
       <PlaceholderCard
         title="Como apoiar no dia a dia"
-        description="Dicas simples para apoiar a rotina com calma."
+        description="Dicas simples para apoiar a rotina com calma, sem pressa."
       >
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
           <li>Ofereca pequenas escolhas para incentivar autonomia.</li>
