@@ -8,8 +8,8 @@ export default function OnboardingPage() {
       <div className="space-y-1">
         <h1 className="text-2xl font-semibold">Boas-vindas</h1>
         <p className="text-sm text-zinc-500">
-          Voce nao precisa ter tudo sob controle. Este app esta aqui para ajudar
-          com leveza, sem pressao e sem certo ou errado.
+          Voce nao precisa dar conta de tudo. Este app esta aqui para apoiar com
+          leveza, sem pressao e sem certo ou errado.
         </p>
       </div>
 
@@ -19,7 +19,7 @@ export default function OnboardingPage() {
       >
         <p className="mt-2 text-sm text-zinc-500">
           Aqui voce encontra orientacoes simples, organizadas por fase, para
-          apoiar sono, alimentacao, comportamento e rotinas.
+          apoiar o sono, a alimentacao, o comportamento e as rotinas.
         </p>
       </PlaceholderCard>
 
@@ -28,7 +28,8 @@ export default function OnboardingPage() {
         description="Nao compara criancas e nao traz diagnosticos."
       >
         <p className="mt-2 text-sm text-zinc-500">
-          Este app nao substitui avaliacao profissional e nao faz julgamentos.
+          Este app apoia a observacao e a organizacao do dia a dia, sem
+          diagnosticar ou rotular.
         </p>
       </PlaceholderCard>
 
@@ -37,8 +38,8 @@ export default function OnboardingPage() {
         description="Use quando fizer sentido para sua familia."
       >
         <p className="mt-2 text-sm text-zinc-500">
-          Voce pode escolher uma secao por vez, voltar quando quiser e registrar
-          o que achar importante. O uso e flexivel.
+          Voce pode escolher uma secao por vez, voltar quando quiser e anotar o
+          que achar importante. O uso e flexivel.
         </p>
       </PlaceholderCard>
 
