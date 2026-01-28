@@ -101,11 +101,11 @@ export default function SymptomsPage() {
   const groupLabel = ageGroupLabels[ageGroup];
   const attentionItems = content ? content.attention.slice(0, 3) : [];
   const noDataMessage =
-    "Cada crianca tem seu ritmo. Observe com calma e anote o que voce percebe.";
+    "Cada crianca tem seu ritmo. Observe com calma, sem pressa, e anote o que voce percebe.";
   const introText =
-    "Sinais sao observacoes do dia a dia. Eles ajudam a entender como a crianca esta, sem conclusoes ou rotulos.";
+    "Sinais sao observacoes do dia a dia. Eles ajudam a observar e organizar o que voce percebe, sem conclusoes ou rotulos.";
   const phaseSummary = !hasProfile
-    ? "Sem perfil por enquanto. Se quiser, complete o perfil para ver a fase atual."
+    ? "Sem perfil por enquanto. Se quiser, complete o perfil para ver a fase com mais clareza."
     : isPrenatal
       ? "Perfil em gestacao. Este conteudo fica disponivel apos o nascimento."
       : ageGroup === "unknown"
@@ -121,8 +121,8 @@ export default function SymptomsPage() {
       <div className="space-y-1">
         <h1 className="text-2xl font-semibold">Sintomas</h1>
         <p className="text-sm text-zinc-500">
-          Orientacao pratica para observar sinais do dia a dia com calma e
-          clareza.
+          Apoio pratico para observar sinais do dia a dia com calma e organizar
+          o que voce percebe.
         </p>
       </div>
 
@@ -155,7 +155,7 @@ export default function SymptomsPage() {
 
       <PlaceholderCard
         title="O que observar no dia a dia"
-        description="Exemplos simples para guiar sua observacao."
+        description="Exemplos simples para ajudar a perceber o que muda."
       >
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
           <li>Mudancas de comportamento, humor ou energia.</li>
@@ -167,7 +167,7 @@ export default function SymptomsPage() {
 
       <PlaceholderCard
         title="Como apoiar no dia a dia"
-        description="Dicas simples para acompanhar com mais tranquilidade."
+        description="Dicas simples para apoiar com mais tranquilidade."
       >
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
           <li>Observe com calma e veja se algo muda com descanso ou colo.</li>
