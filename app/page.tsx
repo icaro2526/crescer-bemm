@@ -170,7 +170,7 @@ export default function Home() {
 
       <PlaceholderCard
         title="Proximos passos sugeridos"
-        description="Cada atalho mostra quando acessar e como pode ajudar no dia a dia."
+        description="Cada atalho mostra quando acessar e como pode ajudar no dia a dia. Se quiser, ha uma jornada guiada opcional para o primeiro acesso."
       >
         <div className="mt-3 flex flex-wrap gap-2">
           {shortcuts.map((shortcut) => (
