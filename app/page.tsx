@@ -81,10 +81,10 @@ export default function Home() {
         label: "Desenvolvimento: entender marcos da fase",
         href: "/development",
       },
-      { label: "Sono: organizar rotina de descanso", href: "/sleep" },
+      { label: "Sono: apoiar rotina de descanso", href: "/sleep" },
       { label: "Nutricao: apoiar refeicoes do dia", href: "/nutrition" },
       { label: "Sintomas: observar sinais com calma", href: "/symptoms" },
-      { label: "Comportamento: lidar com birras e limites", href: "/behavior" },
+      { label: "Comportamento: apoio nas birras e limites", href: "/behavior" },
     ];
 
     if (!ageInMonths || isPrenatal) {
@@ -121,15 +121,15 @@ export default function Home() {
       <div className="space-y-1">
         <h1 className="text-2xl font-semibold">Resumo do dia</h1>
         <p className="text-sm text-zinc-500">
-          Um panorama simples para entender a fase da crianca e o que observar
-          no dia a dia.
+          Um panorama simples para observar a fase da crianca no dia a dia. Este
+          app apoia observacao e organizacao, sem comparacoes ou diagnosticos.
         </p>
       </div>
 
       <ChildSummaryCard profile={profile} />
 
       <PlaceholderCard
-        title="Resumo da fase da crianca"
+        title="Resumo da fase"
         description={phaseSummary}
       >
         {milestoneHighlights.length > 0 ? (
@@ -149,8 +149,8 @@ export default function Home() {
       </PlaceholderCard>
 
       <PlaceholderCard
-        title="Sinais de atencao (ate 3)"
-        description="Sinais leves para observar com calma e sem pressa."
+        title="Atencoes para esta fase (ate 3)"
+        description="Observacoes leves para acompanhar com calma e sem pressa."
       >
         {attentionHighlights.length > 0 ? (
           <ul className="mt-3 space-y-2 text-sm text-zinc-600">
@@ -170,7 +170,7 @@ export default function Home() {
 
       <PlaceholderCard
         title="Proximos passos sugeridos"
-        description="Cada atalho mostra quando acessar e como pode ajudar no dia a dia. Se quiser, ha uma jornada guiada opcional para o primeiro acesso."
+        description="Escolha uma area quando fizer sentido para voce. Se quiser, ha uma jornada guiada opcional para o primeiro acesso."
       >
         <div className="mt-3 flex flex-wrap gap-2">
           {shortcuts.map((shortcut) => (
