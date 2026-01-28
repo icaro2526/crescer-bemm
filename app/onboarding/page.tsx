@@ -50,6 +50,16 @@ export default function OnboardingPage() {
           O importante e seguir no seu ritmo, com carinho e confianca.
         </p>
       </PlaceholderCard>
+
+      <PlaceholderCard
+        title="Um proximo passo possivel"
+        description="Sugestoes leves para quando fizer sentido."
+      >
+        <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-zinc-600">
+          <li>Escolha uma area para explorar com calma.</li>
+          <li>Se preferir, volte depois e continue no seu ritmo.</li>
+        </ul>
+      </PlaceholderCard>
     </section>
   );
 }
