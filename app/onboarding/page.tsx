@@ -8,8 +8,8 @@ export default function OnboardingPage() {
       <div className="space-y-1">
         <h1 className="text-2xl font-semibold">Boas-vindas</h1>
         <p className="text-sm text-zinc-500">
-          Voce nao precisa dar conta de tudo. Este app esta aqui para apoiar com
-          leveza, sem pressao e sem certo ou errado.
+          Voce nao precisa dar conta de tudo. Este app esta aqui para apoiar o
+          dia a dia com leveza, sem pressao e sem certo ou errado.
         </p>
       </div>
 
@@ -19,7 +19,7 @@ export default function OnboardingPage() {
       >
         <p className="mt-2 text-sm text-zinc-500">
           Aqui voce encontra orientacoes simples, organizadas por fase, para
-          apoiar o sono, a alimentacao, o comportamento e as rotinas.
+          apoiar sono, alimentacao, comportamento e rotinas.
         </p>
       </PlaceholderCard>
 
@@ -28,8 +28,8 @@ export default function OnboardingPage() {
         description="Nao compara criancas e nao traz diagnosticos."
       >
         <p className="mt-2 text-sm text-zinc-500">
-          Este app apoia a observacao e a organizacao do dia a dia, sem
-          diagnosticar ou rotular.
+          Este app nao substitui profissionais e nao entrega respostas prontas.
+          Ele serve como apoio no dia a dia.
         </p>
       </PlaceholderCard>
 
@@ -38,14 +38,14 @@ export default function OnboardingPage() {
         description="Use quando fizer sentido para sua familia."
       >
         <p className="mt-2 text-sm text-zinc-500">
-          Voce pode escolher uma secao por vez, voltar quando quiser e anotar o
-          que achar importante. O uso e flexivel.
+          Voce pode escolher uma secao por vez, anotar o que achar importante e
+          voltar quando quiser. O uso e livre.
         </p>
       </PlaceholderCard>
 
       <PlaceholderCard
         title="Encerramento"
-        description="Voce pode começar quando quiser."
+        description="Voce pode começar quando fizer sentido."
       >
         <p className="mt-2 text-sm text-zinc-500">
           O importante e seguir no seu ritmo, com carinho e confianca.
