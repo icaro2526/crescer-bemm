@@ -52,7 +52,7 @@ const routineContentByGroup: Record<
     observe: [
       "Quer escolher pequenas tarefas do dia.",
       "Se beneficia de avisos antes das transicoes.",
-      "Horarios regulares ajudam no humor.",
+      "Horarios parecidos ajudam no humor.",
       "Momento de brincar e descansar ficam mais separados.",
     ],
     tips: [
@@ -138,7 +138,7 @@ export default function RoutinesPage() {
   const observeFallback =
     "Rotinas se constroem aos poucos. Pequenos combinados ja fazem diferenca.";
   const tipsFallback =
-    "Comece com um passo simples e repita por alguns dias, com flexibilidade.";
+    "Comece com um passo simples e ajuste conforme o dia a dia.";
 
   if (!isReady) {
     return <p className="text-sm text-zinc-500">Carregando perfil...</p>;
@@ -190,10 +190,10 @@ export default function RoutinesPage() {
 
       <PlaceholderCard
         title="O que fazer agora?"
-        description="Passos simples e acionaveis."
+        description="Passos simples e acionaveis, sem pressa."
       >
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600">
-          <li>Escolha dois momentos fixos do dia, como acordar e dormir.</li>
+          <li>Escolha dois momentos do dia, como acordar e dormir.</li>
           <li>Observe por alguns dias o que funciona melhor.</li>
           <li>Ajuste aos poucos e busque orientacao se precisar.</li>
         </ul>
