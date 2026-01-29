@@ -15,6 +15,9 @@ export type PushContext = {
   now?: Date;
   firstAccessAt?: Date | null;
   lastCheckInAt?: Date | null;
+  lastRecordAt?: Date | null;
+  lastSensitiveContentAt?: Date | null;
+  lastActiveNavigationAt?: Date | null;
   lastInteractionAt?: Date | null;
   lastPushAt?: Date | null;
   lastPatternPushAt?: Date | null;
@@ -74,8 +77,10 @@ export function getNextWeeklyPush(context: PushContext): PushMessage | null {
   }
 
   const recentActivityAt = getMostRecentDate([
-    context.lastInteractionAt,
     context.lastCheckInAt,
+    context.lastRecordAt,
+    context.lastSensitiveContentAt,
+    context.lastActiveNavigationAt,
   ]);
   const daysSinceActivity = daysSince(recentActivityAt, now);
   if (daysSinceActivity !== null && daysSinceActivity < 7) {
