@@ -53,11 +53,32 @@ function daysSince(date: Date | null | undefined, now: Date) {
   return Math.floor(diffMs / DAY_MS);
 }
 
+function getMostRecentDate(dates: Array<Date | null | undefined>) {
+  return dates.reduce<Date | null>((latest, current) => {
+    if (!current) {
+      return latest;
+    }
+    if (!latest) {
+      return current;
+    }
+    return current.getTime() > latest.getTime() ? current : latest;
+  }, null);
+}
+
 export function getNextWeeklyPush(context: PushContext): PushMessage | null {
   const now = context.now ?? new Date();
 
   const daysSinceLastPush = daysSince(context.lastPushAt, now);
   if (daysSinceLastPush !== null && daysSinceLastPush < 7) {
+    return null;
+  }
+
+  const recentActivityAt = getMostRecentDate([
+    context.lastInteractionAt,
+    context.lastCheckInAt,
+  ]);
+  const daysSinceActivity = daysSince(recentActivityAt, now);
+  if (daysSinceActivity !== null && daysSinceActivity < 7) {
     return null;
   }
 
