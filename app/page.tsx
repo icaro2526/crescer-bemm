@@ -7,6 +7,7 @@ import PlaceholderCard from "@/components/PlaceholderCard";
 import { useChildProfile } from "@/features/child-profile/context";
 import { calculateAgeSummary } from "@/features/child-profile/utils";
 import { getAgeInMonths, getCurrentStage } from "@/app/development/utils";
+import { getHomeState, HomeState } from "@/features/home/state";
 
 function formatAgeLabel(ageInMonths: number | null) {
   if (ageInMonths === null) {
@@ -46,6 +47,21 @@ export default function Home() {
       ? "Em gestacao"
       : formatAgeLabel(ageInMonths)
     : "A confirmar";
+  const lastMeaningfulInteractionAt = profile?.updatedAt
+    ? new Date(profile.updatedAt)
+    : null;
+  const lastSensitiveContentAccessAt = null;
+  const homeState = useMemo(
+    () =>
+      getHomeState({
+        lastMeaningfulInteractionAt,
+        lastSensitiveContentAccessAt,
+      }),
+    [lastMeaningfulInteractionAt, lastSensitiveContentAccessAt]
+  );
+  const showProfileSummary = homeState !== HomeState.SENSITIVE;
+  const showProgressBlocks = homeState === HomeState.SILENT;
+  const showCtaBlock = homeState === HomeState.SILENT;
 
   // Highlight 3-5 milestones by selecting a balanced mix across categories.
   const milestoneHighlights = useMemo(() => {
@@ -126,70 +142,76 @@ export default function Home() {
         </p>
       </div>
 
-      <ChildSummaryCard profile={profile} />
+      {showProfileSummary && <ChildSummaryCard profile={profile} />}
 
-      <PlaceholderCard
-        title="Resumo da fase"
-        description={phaseSummary}
-      >
-        {milestoneHighlights.length > 0 ? (
-          <ul className="mt-3 space-y-2 text-sm text-zinc-600">
-            {milestoneHighlights.map((item) => (
-              <li key={item} className="flex gap-2">
-                <span className="text-zinc-400">•</span>
-                <span>{item}</span>
-              </li>
+      {showProgressBlocks && (
+        <PlaceholderCard
+          title="Resumo da fase"
+          description={phaseSummary}
+        >
+          {milestoneHighlights.length > 0 ? (
+            <ul className="mt-3 space-y-2 text-sm text-zinc-600">
+              {milestoneHighlights.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span className="text-zinc-400">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-3 text-sm text-zinc-500">
+              {milestonesFallback}
+            </p>
+          )}
+        </PlaceholderCard>
+      )}
+
+      {showProgressBlocks && (
+        <PlaceholderCard
+          title="Atencoes para esta fase (ate 3)"
+          description="Observacoes leves para acompanhar com calma e sem pressa."
+        >
+          {attentionHighlights.length > 0 ? (
+            <ul className="mt-3 space-y-2 text-sm text-zinc-600">
+              {attentionHighlights.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span className="text-zinc-400">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-3 text-sm text-zinc-500">
+              {attentionFallback}
+            </p>
+          )}
+        </PlaceholderCard>
+      )}
+
+      {showCtaBlock && (
+        <PlaceholderCard
+          title="Proximos passos sugeridos"
+          description="Escolha uma area quando fizer sentido para voce. Se quiser, ha uma jornada guiada opcional para o primeiro acesso."
+        >
+          <div className="mt-3 flex flex-wrap gap-2">
+            {shortcuts.map((shortcut) => (
+              <Link
+                key={shortcut.href}
+                href={shortcut.href}
+                className="rounded-full border border-zinc-200 px-4 py-2 text-sm text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-900"
+              >
+                {shortcut.label}
+              </Link>
             ))}
-          </ul>
-        ) : (
-          <p className="mt-3 text-sm text-zinc-500">
-            {milestonesFallback}
-          </p>
-        )}
-      </PlaceholderCard>
-
-      <PlaceholderCard
-        title="Atencoes para esta fase (ate 3)"
-        description="Observacoes leves para acompanhar com calma e sem pressa."
-      >
-        {attentionHighlights.length > 0 ? (
-          <ul className="mt-3 space-y-2 text-sm text-zinc-600">
-            {attentionHighlights.map((item) => (
-              <li key={item} className="flex gap-2">
-                <span className="text-zinc-400">•</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-3 text-sm text-zinc-500">
-            {attentionFallback}
-          </p>
-        )}
-      </PlaceholderCard>
-
-      <PlaceholderCard
-        title="Proximos passos sugeridos"
-        description="Escolha uma area quando fizer sentido para voce. Se quiser, ha uma jornada guiada opcional para o primeiro acesso."
-      >
-        <div className="mt-3 flex flex-wrap gap-2">
-          {shortcuts.map((shortcut) => (
-            <Link
-              key={shortcut.href}
-              href={shortcut.href}
-              className="rounded-full border border-zinc-200 px-4 py-2 text-sm text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-900"
-            >
-              {shortcut.label}
-            </Link>
-          ))}
-        </div>
-        {profile && !isPrenatal && !currentStage && (
-          <p className="mt-3 text-xs text-zinc-500">
-            Se a faixa etaria ainda nao estiver clara, voce pode revisar a data
-            de nascimento quando quiser.
-          </p>
-        )}
-      </PlaceholderCard>
+          </div>
+          {profile && !isPrenatal && !currentStage && (
+            <p className="mt-3 text-xs text-zinc-500">
+              Se a faixa etaria ainda nao estiver clara, voce pode revisar a data
+              de nascimento quando quiser.
+            </p>
+          )}
+        </PlaceholderCard>
+      )}
 
     </section>
   );
