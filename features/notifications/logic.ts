@@ -1,5 +1,7 @@
 "use client";
 
+import { getHomeState, HomeState } from "@/features/home/state";
+
 export type PushId =
   | "weekly-check-in"
   | "quiet-continuity"
@@ -71,18 +73,26 @@ function getMostRecentDate(dates: Array<Date | null | undefined>) {
 export function getNextWeeklyPush(context: PushContext): PushMessage | null {
   const now = context.now ?? new Date();
 
+  const lastMeaningfulInteractionAt = getMostRecentDate([
+    context.lastCheckInAt,
+    context.lastRecordAt,
+    context.lastActiveNavigationAt,
+  ]);
+  const homeState = getHomeState({
+    lastMeaningfulInteractionAt,
+    lastSensitiveContentAccessAt: context.lastSensitiveContentAt,
+    now,
+  });
+  if (homeState === HomeState.SENSITIVE) {
+    return null;
+  }
+
   const daysSinceLastPush = daysSince(context.lastPushAt, now);
   if (daysSinceLastPush !== null && daysSinceLastPush < 7) {
     return null;
   }
 
-  const recentActivityAt = getMostRecentDate([
-    context.lastCheckInAt,
-    context.lastRecordAt,
-    context.lastSensitiveContentAt,
-    context.lastActiveNavigationAt,
-  ]);
-  const daysSinceActivity = daysSince(recentActivityAt, now);
+  const daysSinceActivity = daysSince(lastMeaningfulInteractionAt, now);
   if (daysSinceActivity !== null && daysSinceActivity < 7) {
     return null;
   }
